@@ -1,5 +1,12 @@
 <?php 
 
+ 
+  /**
+   * Elevator_Test
+   * index.php
+   * @author  MorelSami (06/06/2020)
+   */
+
  class ElevatorController{
   
   //class instance variables
@@ -9,16 +16,16 @@
   public $request; 
 
   public function __construct($newRequest){
-     $this->elevatorCar_Count_Max= 1;
-     $this->floorCountMax= 6;
+     $this->elevatorCar_Count_Max= 1;  //$maxElevatorCount
+     $this->floorCountMax= 6;  //$maxFloorCount
      $this->request = $newRequest;
 
   }
   
   
   /**
-   * startElevator function to stop elevatorCar when
-   * when requested
+   * startElevator function to stop elevatorCar when requested
+   * @return void, simply prints out the named action
    */
   public function startElevator(){
       echo "Elevator Car started!</br>";
@@ -26,8 +33,8 @@
 
   
   /**
-  * stopElevator function to stop elevatorCar when
-  * when requested
+  * stopElevator function to stop elevatorCar when requested
+  * @return void, simply prints out the named action
   */
   public function stopElevator(){
      echo "Elevator Car Stopped!</br>";
@@ -35,13 +42,14 @@
 
 
   /**
-  * elevatorScan function to select the nearest elevatorCar to  initial floor request 
+  * elevatorScan function to select the nearest elevatorCar to initial floor request
+  * @return $selected elevatorCar 
   */
 
   public function elevatorScan(){
     
     $count = $this->elevatorCar_Count_Max;
-    $requestedFloor = $this->request['initFloor'];
+    $requestedFloor = $this->request['startFloor'];
     $min = $this->floorCountMax;
     $selectedLift = 1;
     
@@ -66,167 +74,82 @@
   /**
   * runElevator function to run elevatorCar to necessary floors as requested
   * @param elevatorNumber, the available elevatorCar at that moment
+  * @return void, simply prints out the named actions
   */
 
    public function runElevator($elevatorNumber){
      
      $this->elevatorCar = new ElevatorCar($elevatorNumber);
-     $currentState= $this->elevatorCar->getCurrentState();
      $currentFloor = $this->elevatorCar->getCurrentFloor();
-
-     echo "Elevator Car ".$elevatorNumber." selected!";
+     echo "Current Floor:  ".$currentFloor."</br></br>";
            
-     $fromFloor = $this->request['initFloor'];
-     $toFloor = $this->request['endFloor'];
+     $fromFloor = $this->request['startFloor'];
+     $toFloor = $this->request['stopFloor'];
 
       if($fromFloor < 1 || $fromFloor > $this->floorCountMax)
-        return "Error !! Wrong Floor";
+         exit("Error !! Wrong Floor");
 
       if($toFloor < 1 || $toFloor > $this->floorCountMax)
-              return "Error !! Wrong Floor";
+          exit("Error !! Wrong Floor");
+
+       echo "Elevator Car ".$elevatorNumber." selected!</br></br>";
 
     /**
      ** move elevator to departure floor
      **/
 
-     switch ($currentState){ 
+      if($currentFloor == $fromFloor){
+          $this->elevatorCar->openDoor();
+       }
+       else if($currentFloor < $fromFloor){ 
 
-        case -1: //elevatorCar currentState[moving down]
-                  
-          if($currentFloor == $fromFloor){
-              
-            stopElevator();
-            $this->elevatorCar->openDoor();
-          }//end if
-          else if($currentFloor > $fromFloor){ 
+         $this->startElevator();
+         while ($currentFloor < $fromFloor ) {
+            $this->elevatorCar->moveUp();
+            $currentFloor = $this->elevatorCar->getCurrentFloor();
+          } //end while loop
 
-            while ($currentFloor > $fromFloor ) {
-              $this->elevatorCar->moveDown();
-              $currentFloor = $this->elevatorCar->getCurrentFloor();
-            } //end while loop
-
-            stopElevator(); 
-            $this->elevatorCar->openDoor();
-            }//end elseif
-          else{
-
-            while ($currentFloor > 1) { //elevatorCar continues to move down until bottom floor
-              $this->elevatorCar->moveDown();
-              $currentFloor = $this->elevatorCar->getCurrentFloor();
-            } 
-            stopElevator(); //when reached bottom floor
-                     
-            startElevator();
-            while($currentFloor < $fromFloor){ //elevatorCar moves up after reaching bottom floor
-              $this->elevatorCar->moveUp();
-              $currentFloor = $this->elevatorCar->getCurrentFloor();
-            }
-
-            stopElevator(); //when reached destination;
-            $this->elevatorCar->openDoor();
-          } //end else
-
-         break; //end currentState[moving down]
-
-        case 1: //elevatorCar currentState[moving up]
-                   
-          if($currentFloor == $fromFloor){
-              
-            $this->stopElevator();
-            $this->elevatorCar->openDoor();
-           }//end if
-           else if($currentFloor < $fromFloor){ 
-
-               while ($currentFloor < $fromFloor ) {
-                 $this->elevatorCar->moveUp();
-                 $currentFloor = $this->elevatorCar->getCurrentFloor();
-                } //end while loop
-
-                stopElevator(); 
-                $this->elevatorCar->openDoor();
-           }//end elseif
-           else{
-
-              while ($currentFloor < $this->floorCountMax) { //elevatorCar continues to move up until top floor
-                  $this->elevatorCar->moveUp();
-                  $currentFloor = $this->elevatorCar->getCurrentFloor();
-              } 
-                      stopElevator(); //when reached top floor
-                     
-              startElevator();
-              while($currentFloor > $fromFloor){ //elevatorCar moves down after reaching top floor
-                $this->elevatorCar->moveDown();
-                $currentFloor = $this->elevatorCar->getCurrentFloor();
-              }
-
-              stopElevator(); //when reached destination;
-              $this->elevatorCar->openDoor();
-
-              } //endElse
-
-          break; //end currentState[Movingup]
-         
-         default: //elevatorCar currentState[stationary]
-
-          if($currentFloor == $fromFloor){
-            $this->elevatorCar->openDoor();
-          }
-          else if($currentFloor < $fromFloor){ 
-
-             startElevator();
-             while ($currentFloor < $fromFloor ) {
-              $this->elevatorCar->moveUp();
-              $currentFloor = $this->elevatorCar->getCurrentFloor();
-             } //end while loop
-
-             stopElevator(); 
-             $this->elevatorCar->openDoor();
-           }
-          else{
+          $this->stopElevator(); 
+          $this->elevatorCar->openDoor();
+        }
+        else{
                     
-              startElevator();
-              while ($currentFloor > $fromFloor ) {
-                $this->elevatorCar->moveDown();
-                $currentFloor = $this->elevatorCar->getCurrentFloor();
-              } //end while loop
+          $this->startElevator();
+          while ($currentFloor > $fromFloor ) {
+            $this->elevatorCar->moveDown();
+            $currentFloor = $this->elevatorCar->getCurrentFloor();
+           } //end while loop
 
-              stopElevator();
-              $this->elevatorCar->openDoor();
+          $this->stopElevator();
+          $this->elevatorCar->openDoor();
 
-          }//endElse
-
-          break; //end currentState[Stationary]
-
-       } //end switch  
-
+        }//endElse 
 
         /**
-        ** move elevator to destination
+        ** move elevator to destination floor
         **/
 
-          $this->elevatorCar->closeDoor();
-          startElevator();
+        $this->elevatorCar->closeDoor();
+        $this->startElevator();
            
-           if($toFloor > $fromFloor){
-               while ($currentFloor < $toFloor) {
-                 $this->elevatorCar->moveUp();
-                 $currentFloor = $this->elevatorCar->getCurrentFloor();
-               }
-            }
-            else{
+        if($toFloor > $fromFloor){
+          while ($currentFloor < $toFloor) {
+            $this->elevatorCar->moveUp();
+            $currentFloor = $this->elevatorCar->getCurrentFloor();
+          }
+        }
+        else{
 
-               while ($currentFloor > $toFloor) {
-                 $this->elevatorCar->moveDown();
-                 $currentFloor = $this->elevatorCar->getCurrentFloor();
-               }
-            }
+          while ($currentFloor > $toFloor) {
+            $this->elevatorCar->moveDown();
+            $currentFloor = $this->elevatorCar->getCurrentFloor();
+          }
+        }
 
-          stopElevator();
-          $this->elevatorCar->openDoor();
-          echo "Floor Number " .$currentFloor." , Arrived!</br>";
+        $this->stopElevator();
+        $this->elevatorCar->openDoor();
+        echo "Floor Number " .$currentFloor." , Arrived!</br>";
 
-       
-      
     }
 
 

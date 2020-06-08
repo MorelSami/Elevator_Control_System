@@ -12,9 +12,13 @@ class ElevatorRequest{
  		$this->toFloor = $destination;
  	}
 
- 	public function placeRequest(){
+ 	public function getRequest(){
 
-        $this->request = array("initFloor" => $this->fromFloor, "endFloor" => $this->toFloor);
+        $this->request = array("startFloor" => $this->fromFloor, "stopFloor" => $this->toFloor);
+        echo "Elevator request >>> </br></br>";
+        echo "Initial Floor: ".$this->fromFloor."</br>";
+        echo "Destination  Floor : ".$this->toFloor."</br>";
+        echo "</br>";
         return $this->request;
  	}
 

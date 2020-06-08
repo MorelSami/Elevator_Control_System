@@ -1,24 +1,28 @@
 <?php 
 
+
+  /**
+   * Elevator_Test
+   * index.php
+   * @author  MorelSami (06/06/2020)
+   */
+
   class ElevatorCar{
   
   //class instance variables
   public $elevatorNumber;
   public $currentFloor;
-  public $currentState; 
-  
-  ////Elevator new state must be either -1, 0, 1 respectively(movingDown, stationary, movingUp)
 
   //class default constructor
-  public function __construct($number){ 
+  public function __construct($liftNumber){ 
       
-    $this->elevatorNumber= $number;
+    $this->elevatorNumber= $liftNumber;
     $this->currentFloor = 1;
-    $this->currentState = 0;
 
   }
 
-  
+  /** Class Setters and Getters **/
+
   public function getElevatorNumber(){
     
     return $this->elevatorNumber;
@@ -27,11 +31,6 @@
   public function getCurrentFloor(){
   	
   	return $this->currentFloor;
-  }
-
-  public function getCurrentState(){
-    
-    return $this->currentFloor;
   }
 
 
@@ -47,14 +46,10 @@
 
   }
 
-  public function setCurrentState($newState){
-     $this->currentState = $newState;
-  }
-
-
   /**
   * moveUp Function to call for a lift/elevator car
-  * requesting to move up
+  * requesting to move 
+  * @return void, simply prints out the named action
   */
 
   public function moveUp(){
@@ -67,6 +62,7 @@
   /**
   * moveDqwn Function to call for a lift/elevator car
   * requesting to move down
+  * @return void, simply prints out the named action
   */
 
   public function moveDown(){
@@ -79,6 +75,7 @@
   /**
   * openDoor Function to request the lift/elevator car door 
   * to be opened
+  * @return void, simply prints out the named action
   */
 
   public function openDoor(){
@@ -87,24 +84,13 @@
 
   /**
   * closeDoor Function to request the lift/elevator car door 
-  * to be closed
+  * to be 
+  * @return void, simply prints out the named action
   */
 
   public function closeDoor(){
   	  echo "Door Closed!</br>";
   }
-
-  /**
-  * emergencyStop Function to request the lift/elevator car  
-  * to stop whereever it is located
-  */
-
-  public function EmergencyStop(){
-  	  echo "Elevator Stopped!</br>";
-  }
-
-
-
 
   }
 

@@ -1,67 +1,77 @@
+
 <?php
+
+  /**
+   * Elevator_Test
+   * index.php
+   * @author  MorelSami (06/06/2020)
+   */
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 
-
-//Initial test
-include ('../src/app/Button.php');
-include ('../src/app/ElevatorRequest.php');
-include ('../src/app/Dispatcher.php');
-include ('../src/app/ElevatorController.php');
-include ('../src/app/ElevatorCar.php');
-
-
-//load .env file
-/*$dotenv = new Dotenv\Dotenv('../src');
+/*use  \Dotenv\Dotenv
+$dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 //fetch configured environmental variable
-$maxLift = env('ELEVATOR_cARS_COUNT');
-$maxFloor = env('FLOOR_COUNT'); 
+$maxElevatorCount = getenv('ELEVATOR_CARS_COUNT');
+$maxFloorCount = getenv('FLOOR_COUNT'); 
+*/
+
+include ('../src/app/ElevatorRequest.php');
+include ('../src/app/ElevatorController.php');
+include ('../src/app/ElevatorCar.php');
 
 //configurations
 $config = [
     'settings' => [
         'displayErrorDetails' => true,
-
-        'logger' => [
-            'name' => 'slim-app',
-            'level' => Monolog\Logger::DEBUG,
-            'path' => __DIR__ . '/../logs/app.log',
-        ],
-
         'addContentLengthHeader' => false
-    ],
-];
-*/
+    ]
+]; 
+
+
+//Intro
 
 
 $app = new \Slim\App();
-$app->post('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-    echo "Welcome to our elevator system program</br>";
+$app->post('/elevatorRequest', function (Request $request, Response $response, array $args) {
+    
+  if($request->isPost()){
+  	 
+  	 $contentType = $request->getContentType();
+     
+     if($contentType == 'application/json')
+  	   $newRequest = $request->getParsedBody();
+     else
+     	exit("JSON ContentType Required!");
 
+    $body="Welcome to my new elevator system !!</br></br>";
+
+    $req = new ElevatorRequest($newRequest['startFloor'], $newRequest['stopFloor']);
+    $elevatorRequest= $req->getRequest();
+
+    $controller = new ElevatorController($elevatorRequest);
+
+    $lift_number = $controller->elevatorScan();
+
+    $controller->runElevator($lift_number);
+ 
+    $response->getBody()->write("Hello Shawn, $body");
+
+  }
+  else{
+
+  	 $response->getBody()->write("Wrong HTTP Request! POST required...");
+
+  }
 
     return $response;
 });
 $app->run()
-
-
-
-$controller = new ElevatorController($nextRequest);
-$lift_number = $controller->elevatorScan();
-$controller->runElevator($lift_number);
-
-
-
-
-
-
-
-
 
 
 ?>
