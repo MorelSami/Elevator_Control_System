@@ -35,40 +35,30 @@
 
 
   /**
-  * runElevator function to run elevatorCar to necessary floors as requested
-  * so far it can only process one request
-  * @param request, submitted  from the requestQueue
+  * elevatorScan function to select the nearest elevatorCar to  initial floor request 
   */
 
   public function elevatorScan(){
     
     $count = $this->elevatorCar_Count_Max;
     $requestedFloor = $this->request['initFloor'];
+    $min = $this->floorCountMax;
+    $selectedLift = 1;
     
     for($i = 1; $i <= $count; $i++){
     
       $this->elevatorCar = new ElevatorCar($i);
       $currentFloor = $this->elevatorCar->getCurrentFloor();
-      $selected = $i;
-        
-      $shortestSeek = abs($currentFloor - $requestedFloor);
 
-      for($j = $i + 1; $j <= $count; $j++){  
-               
-          $this->elevatorCar = new ElevatorCar($j);
-          $currentFloor2 = $this->elevatorCar->getCurrentFloor();
+      $levelDiff = abs($currentFloor - $requestedFloor);
 
-           $tmp = abs($currentFloor2 - $requestedFloor);
+      if($levelDiff < $min ){
+          $min= $levelDiff; 
+          $selectedLift = $i;
+        }
+     }//end forloop
 
-           if($shortestSeek > $tmp){
-              $selected = $j;
-              $shortestSeek = $tmp;
-            }
-       }//end for(inner loop)
-
-       return $selected; //get the elevatorCar with the shortest distance from the request floor based
-
-      }//end forloop(outer)
+    return $selectedLift; //get the elevatorCar with the shortest distance from the request floor
     
    }
 

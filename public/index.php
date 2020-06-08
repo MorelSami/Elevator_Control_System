@@ -38,32 +38,19 @@ $config = [
 */
 
 
-/*$app = new \Slim\App();
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
+$app = new \Slim\App();
+$app->post('/hello/{name}', function (Request $request, Response $response, array $args) {
     $name = $args['name'];
     $response->getBody()->write("Hello, $name");
+    echo "Welcome to our elevator system program</br>";
 
 
     return $response;
 });
-$app->run();*/
+$app->run()
 
 
 
-
-
-echo "Welcome to our elevator system program"."\n"; 
-
-$user = new ElevatorRequest(1, 5);
-$request= $user->placeRequest();
-
-print_r($request);
-
-$dispatcher = new Dispatcher($request);
-$dispatcher->addRequest();
-$nextRequest = $dispatcher->getNextRequest();
-
-echo  "/n";
 $controller = new ElevatorController($nextRequest);
 $lift_number = $controller->elevatorScan();
 $controller->runElevator($lift_number);

@@ -35,9 +35,9 @@
   }
 
 
- public function setElevatorNumber($newNmber){
+ public function setElevatorNumber($newNumber){
 
-     $this->elevatorNumber = $newNmber;
+     $this->elevatorNumber = $newNumber;
 
   }
 

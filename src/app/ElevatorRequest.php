@@ -1,10 +1,11 @@
 <?php
 
-class ElevatorRequest extends Button{
+class ElevatorRequest{
     
     //class instance variable(s)
  	public $fromFloor;
  	public $toFloor;
+ 	public $request; 
 
  	public function __construct($departure, $destination){ 
  		$this->fromFloor = $departure;
@@ -13,8 +14,8 @@ class ElevatorRequest extends Button{
 
  	public function placeRequest(){
 
-        $request = array("initFloor" => $this->fromFloor, "endFloor" => $this->toFloor);
-        return $request;
+        $this->request = array("initFloor" => $this->fromFloor, "endFloor" => $this->toFloor);
+        return $this->request;
  	}
 
  }
