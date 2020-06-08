@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43c43a01c7335350cbbdbb77a20f1ce6",
+    "content-hash": "0a66ae56516f71c49760d42e41540a66",
     "packages": [
         {
             "name": "nikic/fast-route",
@@ -275,12 +275,64 @@
             "time": "2019-11-28T17:40:33+00:00"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "ilimic/phpdotenv",
+            "version": "v2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ilimic1/phpdotenv.git",
+                "reference": "9aaffd6fce9a5ce51c1766e35a42fddda30b8f75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ilimic1/phpdotenv/zipball/9aaffd6fce9a5ce51c1766e35a42fddda30b8f75",
+                "reference": "9aaffd6fce9a5ce51c1766e35a42fddda30b8f75",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "IlimicDotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2019-09-26T14:08:03+00:00"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
