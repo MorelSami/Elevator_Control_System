@@ -15,8 +15,8 @@
   public $request; 
 
   public function __construct($newRequest){
-     $this->elevatorCar_Count_Max= 1;  //$maxElevatorCount
-     $this->floorCountMax= 6;  //$maxFloorCount
+     $this->elevatorCar_Count_Max= $_ENV['ELEVATOR_CAR_COUNT'];  //$maxElevatorCount
+     $this->floorCountMax= $_ENV['FLOOR_COUNT'];  //$maxFloorCount
      $this->request = $newRequest;
 
   }

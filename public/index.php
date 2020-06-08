@@ -11,14 +11,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 
-/*use  \Dotenv\Dotenv
-$dotenv = Dotenv::createImmutable(__DIR__);
+//use Dotenv\Dotenv
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-
-//fetch configured environmental variable
-$maxElevatorCount = getenv('ELEVATOR_CARS_COUNT');
-$maxFloorCount = getenv('FLOOR_COUNT'); 
-*/
 
 //Initial test
 include ('../src/app/ElevatorRequest.php');
