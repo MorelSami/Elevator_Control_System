@@ -1,7 +1,6 @@
-
 <?php
 
-  /**
+/**
    * Elevator_Test
    * index.php
    * @author  MorelSami (06/06/2020)
@@ -21,6 +20,7 @@ $maxElevatorCount = getenv('ELEVATOR_CARS_COUNT');
 $maxFloorCount = getenv('FLOOR_COUNT'); 
 */
 
+//Initial test
 include ('../src/app/ElevatorRequest.php');
 include ('../src/app/ElevatorController.php');
 include ('../src/app/ElevatorCar.php');
@@ -35,7 +35,6 @@ $config = [
 
 
 //Intro
-
 
 $app = new \Slim\App();
 $app->post('/elevatorRequest', function (Request $request, Response $response, array $args) {
@@ -72,7 +71,6 @@ $app->post('/elevatorRequest', function (Request $request, Response $response, a
     return $response;
 });
 $app->run()
-
 
 ?>
 

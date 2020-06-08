@@ -1,5 +1,12 @@
 <?php
 
+/**
+   * Elevator_Test
+   * index.php
+   * @author  MorelSami (06/06/2020)
+   */
+
+
 class ElevatorRequest{
     
     //class instance variable(s)
@@ -7,11 +14,16 @@ class ElevatorRequest{
  	public $toFloor;
  	public $request; 
 
+    //default class constructor 
  	public function __construct($departure, $destination){ 
  		$this->fromFloor = $departure;
  		$this->toFloor = $destination;
  	}
 
+  /**
+  * getRequest function, elevatorRequest getter method
+  * @return request 
+  */
  	public function getRequest(){
 
         $this->request = array("startFloor" => $this->fromFloor, "stopFloor" => $this->toFloor);

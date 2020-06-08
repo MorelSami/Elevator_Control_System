@@ -1,5 +1,4 @@
 <?php 
-
  
   /**
    * Elevator_Test
@@ -74,7 +73,7 @@
   /**
   * runElevator function to run elevatorCar to necessary floors as requested
   * @param elevatorNumber, the available elevatorCar at that moment
-  * @return void, simply prints out the named actions
+  * @return void, simply prints out the named action
   */
 
    public function runElevator($elevatorNumber){
